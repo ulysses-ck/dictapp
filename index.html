@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary App</title>
+    <!-- CDN BOOTSTRAP -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+        crossorigin="anonymous">
+    <!-- CDN GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container mx-auto">
+        <nav class="navbar navbar-dark bg-dark px-2 py-2">
+            <a class="navbar-brand" href="#">Dictionary App</a>
+        </nav>
+
+        <div class="form-group center-content my-4 py-4 card flex-xxl-column">
+            <h5 class="mx-auto">Search a definition:</h5>
+            <div class="form-group input-group-lg my-4 mx-3 py-3">
+                <input type="text" class="form-control my-1" autocomplete="on" placeholder="Type something" required
+                    id="inputWord" autofocus="autofocus" onfocus="this.select()">
+                <select class="form-select" id="languageCode" required>
+                    <option value="" selected disabled id="optDefault">Select a language</option>
+                    <option value="en_US">English (US)</option>
+                    <option value="hi">Hindi</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="ja">Japanese</option>
+                    <option value="ru">Russian</option>
+                    <option value="en_GB">English (UK)</option>
+                    <option value="de">German</option>
+                    <option value="it">Italian</option>
+                    <option value="ko">Korean</option>
+                    <option value="pt-BR">Brazilian Portuguese</option>
+                    <option value="ar">Arabic</option>
+                    <option value="tr">Turkish</option>
+                </select>
+            </div>
+            <button class="btn btn-success mx-auto" onclick="getValues()" id="btnSearch">Search it</button>
+        </div>
+        <div class="card mx-auto py-4 px-4" id="result" hidden="hidden">
+            <p class="mx-lg-auto">Results for:</p>
+
+        </div>
+
+    </div>
+    <!-- CDN AXIOS -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- CDN REACT -->
+    <!-- <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> -->
+    <!-- SCRIPTS -->
+    <script src="index.js"></script>
+</body>
+
+</html>
