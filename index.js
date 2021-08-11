@@ -4,11 +4,12 @@ const resultDOM = document.getElementById("result")
 const btnSearch = document.getElementById("btnSearch")
 
 const getValues = () => {
+
+
     const inputWord = document.getElementById("inputWord")
     const inputLanguageCode = document.getElementById("languageCode")
     const optDefault = document.getElementById("optDefault")
 
-    console.log(`this is the code lang: "${inputLanguageCode}" .`)
     if (inputWord.value != "" && inputLanguageCode.value != "") {
         getDefinition(inputWord.value, inputLanguageCode.value)
     } else {
@@ -18,6 +19,16 @@ const getValues = () => {
 }
 
 const showResults = (res) => {
+    const elemDefinition = document.createElement("div")
+    elemDefinition.classList.add("definition")
+
+    // if there any definition before search again, remove
+    if (document.getElementsByClassName("definition").length) {
+        for (let i = 0; i < document.getElementsByClassName("definition").length; i++) {
+            document.getElementsByClassName("definition")[i].remove()
+        }
+    }
+
     // show results
     resultDOM.removeAttribute("hidden")
 
@@ -25,47 +36,44 @@ const showResults = (res) => {
 
     const word = document.createElement("div")
     word.innerText = res.data[0].word
-    resultDOM.appendChild(word)
+    elemDefinition.appendChild(word)
 
     if (res.data[0].phonetic != undefined) {
         const spanPhonetics = document.createElement("span")
         spanPhonetics.innerHTML = res.data[0].phonetic
-        resultDOM.appendChild(spanPhonetics)
+        elemDefinition.appendChild(spanPhonetics)
     }
 
 
     for (let i = 0; i < res.data[0].meanings.length; i++) {
         const divCard = document.createElement("div")
+
+        // part of speech
+        if (res.data[0].meanings[i].partOfSpeech != undefined) {
+            const italic = document.createElement("i")
+            italic.innerHTML = res.data[0].meanings[i].partOfSpeech
+            divCard.appendChild(italic)
+        }
+
+        // definition
         const strongDef = document.createElement("strong")
-        const spanExample = document.createElement("span")
-        const italic = document.createElement("i")
 
-
-        // add classes
-        divCard.classList.add("card", "my-4", "py-4", "px-4")
-        word.classList.add("header")
-
-        // add content
+        divCard.classList.add("card", "my-4", "py-4", "px-4", "definition")
         strongDef.innerHTML = `${i+1}. ${res.data[0].meanings[i].definitions[0].definition}`
-        italic.innerHTML = res.data[0].meanings[i].partOfSpeech
-        spanExample.innerHTML = `"${res.data[0].meanings[i].definitions[0].example}"`
-
-
-        // append element
-        divCard.appendChild(italic)
         divCard.appendChild(strongDef)
-        divCard.appendChild(spanExample)
-        resultDOM.appendChild(divCard)
 
-        console.log(res.data[0].meanings[i].definitions[0].definition)
+        // example phrase
+        if (res.data[0].meanings[i].definitions[0].example != undefined) {
 
+            const spanExample = document.createElement("span")
+
+            spanExample.innerHTML = `"${res.data[0].meanings[i].definitions[0].example}"`
+            divCard.appendChild(spanExample)
+        }
+        elemDefinition.appendChild(divCard)
+        resultDOM.appendChild(elemDefinition)
     }
-    newSearch()
-}
-
-const newSearch = () => {
     btnSearch.innerHTML = "New Search"
-    // resultDOM.setAttribute("hidden", "hidden")
 }
 
 const getDefinition = (word, language = "en_US") => {
@@ -73,25 +81,18 @@ const getDefinition = (word, language = "en_US") => {
 
     axios.get(`${urlBase}/${language}/${word}`)
         .then(function (res) {
-            console.log(res)
             showResults(res)
         })
         .catch(function (error) {
             console.log(error)
-            if (error) {
-                // show result
-                resultDOM.removeAttribute("hidden")
+            // show result
+            resultDOM.removeAttribute("hidden")
 
-                // config alert error
-                const alertError = document.createElement("div")
-                alertError.innerHTML = `The word "${word}" you are looking for could not be found. Make sure to wrote the word correctly`
-                alertError.classList.add("alert", "alert-danger")
-                resultDOM.appendChild(alertError)
-            }
-            newSearch()
+            // config alert error
+            const alertError = document.createElement("div")
+            alertError.innerHTML = `The word "${word}" you are looking for could not be found. Make sure to wrote the word correctly`
+            alertError.classList.add("alert", "alert-danger")
+            resultDOM.appendChild(alertError)
         })
-        .then(function () {
-            console.log(".")
-            // newSearch()
-        });
+        .then(function () {});
 }

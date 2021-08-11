@@ -1,8 +1,7 @@
 # Dictionary App
-This is an app web that use API from:
-[Free Dictionary API](https://dictionaryapi.dev/)
+This is an app web that use API from [Free Dictionary API](https://dictionaryapi.dev/)
 
-## Stack
+## Stack  
 - Bootstrap
 - Google Fonts
 - Axios
