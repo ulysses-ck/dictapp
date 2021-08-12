@@ -50,7 +50,7 @@ const showResults = (res) => {
 
     if (res.data[0].phonetic != undefined) {
         const spanPhonetics = document.createElement("span")
-        spanPhonetics.innerHTML = `${res.data[0].phonetic}`
+        spanPhonetics.innerText = `/${res.data[0].phonetic}/`
         elemDefinition.appendChild(spanPhonetics)
     }
 
