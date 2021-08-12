@@ -13,17 +13,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <!-- CDN FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <!-- css -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container mx-auto">
+    <div class="container-fluid mx-auto">
         <nav class="navbar navbar-dark bg-dark px-2 py-2">
             <a class="navbar-brand" href="#">Dictionary App</a>
+            <a href="" class="my-2 my-lg-0 github"><i class="fab fa-github"></i></a>
         </nav>
 
-        <div class="form-group center-content my-4 py-4 card flex-xxl-column">
+        <div class="form-group center-content my-3 py-3 card flex-xxl-column">
             <h5 class="mx-auto">Search a definition:</h5>
             <div class="form-group input-group-lg my-4 mx-3 py-3">
                 <input type="text" class="form-control my-1" autocomplete="on" placeholder="Type something" required
@@ -50,7 +53,6 @@
         <div class="card mx-auto py-4 px-4" id="result" hidden="hidden">
             <p class="mx-lg-auto">Results for:</p>
         </div>
-
     </div>
     <!-- CDN AXIOS -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

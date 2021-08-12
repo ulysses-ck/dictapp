@@ -18,29 +18,39 @@ const getValues = () => {
     }
 }
 
+const remove = () => {
+    // if there any definition before search again, remove
+    if (document.getElementsByClassName("definition").length) {
+        for (let i = 0; i <= document.getElementsByClassName("definition").length; i++) {
+            console.log(`Borrando ${i} elemento(s)`)
+            console.log(document.getElementsByClassName("definition"))
+            document.getElementsByClassName("definition")[i].remove()
+        }
+    }
+    if (document.getElementsByClassName("alert").length) {
+        for (let i = 0; i < document.getElementsByClassName("alert").length; i++) {
+            document.getElementsByClassName("alert")[i].remove()
+        }
+    }
+}
+
 const showResults = (res) => {
     const elemDefinition = document.createElement("div")
     elemDefinition.classList.add("definition")
 
-    // if there any definition before search again, remove
-    if (document.getElementsByClassName("definition").length) {
-        for (let i = 0; i < document.getElementsByClassName("definition").length; i++) {
-            document.getElementsByClassName("definition")[i].remove()
-        }
-    }
+    remove()
 
     // show results
     resultDOM.removeAttribute("hidden")
 
-    // ensure that has one definition
-
     const word = document.createElement("div")
     word.innerText = res.data[0].word
+    word.classList.add("word")
     elemDefinition.appendChild(word)
 
     if (res.data[0].phonetic != undefined) {
         const spanPhonetics = document.createElement("span")
-        spanPhonetics.innerHTML = res.data[0].phonetic
+        spanPhonetics.innerHTML = `${res.data[0].phonetic}`
         elemDefinition.appendChild(spanPhonetics)
     }
 
@@ -58,7 +68,7 @@ const showResults = (res) => {
         // definition
         const strongDef = document.createElement("strong")
 
-        divCard.classList.add("card", "my-4", "py-4", "px-4", "definition")
+        divCard.classList.add("card", "my-4", "py-4", "px-4")
         strongDef.innerHTML = `${i+1}. ${res.data[0].meanings[i].definitions[0].definition}`
         divCard.appendChild(strongDef)
 
@@ -84,6 +94,7 @@ const getDefinition = (word, language = "en_US") => {
             showResults(res)
         })
         .catch(function (error) {
+            remove()
             console.log(error)
             // show result
             resultDOM.removeAttribute("hidden")
@@ -91,7 +102,7 @@ const getDefinition = (word, language = "en_US") => {
             // config alert error
             const alertError = document.createElement("div")
             alertError.innerHTML = `The word "${word}" you are looking for could not be found. Make sure to wrote the word correctly`
-            alertError.classList.add("alert", "alert-danger")
+            alertError.classList.add("alert", "alert-danger", "definition")
             resultDOM.appendChild(alertError)
         })
         .then(function () {});
