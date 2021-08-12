@@ -35,15 +35,18 @@ const remove = () => {
 }
 
 const showResults = (res) => {
+    remove()
+
+
     const elemDefinition = document.createElement("div")
     elemDefinition.classList.add("definition")
 
-    remove()
 
     // show results
     resultDOM.removeAttribute("hidden")
 
-    const word = document.createElement("div")
+    const word = document.createElement("div");
+
     word.innerText = res.data[0].word
     word.classList.add("word")
     elemDefinition.appendChild(word)
@@ -54,6 +57,22 @@ const showResults = (res) => {
         elemDefinition.appendChild(spanPhonetics)
     }
 
+    if (res.data[0].phonetics.length > 0) {
+        for (let i = 0; i < res.data[0].phonetics.length; i++) {
+            if (res.data[0].phonetics[i].audio != undefined) {
+                const audioElem = document.createElement("audio");
+                const sourceAudio = document.createElement("source");
+
+                audioElem.classList.add("audioControls")
+
+                audioElem.setAttribute("controls", "controls");
+                sourceAudio.setAttribute("src", res.data[0].phonetics[i].audio);
+
+                audioElem.appendChild(sourceAudio)
+                elemDefinition.appendChild(audioElem)
+            }
+        }
+    }
 
     for (let i = 0; i < res.data[0].meanings.length; i++) {
         const divCard = document.createElement("div")
