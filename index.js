@@ -63,7 +63,7 @@ const showResults = (res) => {
                 const audioElem = document.createElement("audio");
                 const sourceAudio = document.createElement("source");
 
-                audioElem.classList.add("audioControls")
+                audioElem.classList.add("audioControls", "mx-auto", "my-auto")
 
                 audioElem.setAttribute("controls", "controls");
                 sourceAudio.setAttribute("src", res.data[0].phonetics[i].audio);
